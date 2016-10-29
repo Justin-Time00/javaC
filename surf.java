@@ -1,4 +1,4 @@
-
+package anyP;
 public class surf {
 	public static int[][] arr = {{2079,809484,180},
 			{2133, 989250,2036},
@@ -13,41 +13,28 @@ public class surf {
 	public static void main(String[] args) {
 		int maxFun = 0;
 		for(int i =0;i<arr.length;i++){
-			int time = 0;
-			int maxNum = 0;
-			maxNum = getFun(i,time);
-			if(maxNum>maxFun)
-				maxFun=maxNum;
+			int Fun = 0;
+			Fun = getFun(i,(arr[i][0]+arr[i][2]),Fun);
+			if(Fun> maxFun)
+				maxFun = Fun;
 		}
-		/*for(int i =0;i<arr.length;i++){
-			int time = 0;
-			int maxNum = 0;
-			for(int j = i;j<arr.length;j++){
-				if(arr[j][0]>=time){
-					int maxNum2 = 0;
-					for(int o = j;o<arr.length;o++){
-						maxNum2 += arr[o][1];
-					}
-					if(maxNum2>maxNum)
-						maxNum= maxNum2;
-				}
-			}
-			if(maxFun>maxNum)
-				maxFun = maxNum;
-		}*/
 		System.out.println(maxFun);
 	}
-	public static int getFun(int x,int time){
-		int max = 0;
-		if(time<=arr[x][0]){
-			for(int i = x;i<arr.length;i++){
-				int tempfun =0;
-				time = arr[i][0]+arr[i][2];
-				tempfun = getFun(i,time)+arr[i][1];
-				if(tempfun>max)
-					max=tempfun;
+	public static int getFun(int index,int time,int fun){
+		if(index<arr.length-1){
+			for(int i=index;i<arr.length;i++){
+				if(arr[i][0]>=time){
+					for(int j = i;j<arr.length;j++){
+						int tempFun = 0;
+						tempFun += getFun(i,time,fun);
+						if(tempFun>fun)
+							fun = tempFun;
+					}
+				}
 			}
+			return fun;
 		}
-		return max;
+		else
+		return fun;
 	}
 }
